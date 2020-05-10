@@ -165,10 +165,10 @@ inline Emitter& Emitter::WriteStreamable(T value) {
       special = true;
       stream << ".nan";
     } else if (std::numeric_limits<T>::has_infinity) {
-      if (value == std::numeric_limits<T>::infinity()) {
+      if (std::isinf(value) && value > 0) {
         special = true;
         stream << ".inf";
-      } else if (value == -std::numeric_limits<T>::infinity()) {
+      } else if (std::isinf(value) && value < 0) {
         special = true;
         stream << "-.inf";
       }

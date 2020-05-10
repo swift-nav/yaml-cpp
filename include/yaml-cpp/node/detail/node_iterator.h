@@ -111,6 +111,8 @@ class node_iterator_base
         return m_seqIt == rhs.m_seqIt;
       case iterator_type::Map:
         return m_mapIt == rhs.m_mapIt;
+      default:
+        break;
     }
     return true;
   }
@@ -131,6 +133,8 @@ class node_iterator_base
         ++m_mapIt;
         m_mapIt = increment_until_defined(m_mapIt);
         break;
+      default:
+        break;
     }
     return *this;
   }
@@ -149,6 +153,8 @@ class node_iterator_base
         return value_type(**m_seqIt);
       case iterator_type::Map:
         return value_type(*m_mapIt->first, *m_mapIt->second);
+      default:
+        break;
     }
     return value_type();
   }
