@@ -115,6 +115,7 @@ inline node* node_data::get(const Key& key,
         return pNode;
       return NULL;
     case NodeType::Scalar:
+    default:
       throw BadSubscript(key);
   }
 
@@ -143,6 +144,7 @@ inline node& node_data::get(const Key& key, shared_memory_holder pMemory) {
       convert_to_map(pMemory);
       break;
     case NodeType::Scalar:
+    default:
       throw BadSubscript(key);
   }
 
