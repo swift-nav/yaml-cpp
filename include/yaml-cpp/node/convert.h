@@ -8,6 +8,7 @@
 #endif
 
 #include <array>
+#include <cmath>
 #include <limits>
 #include <list>
 #include <map>
@@ -94,6 +95,16 @@ struct convert<_Null> {
     static Node encode(const type& rhs) {                                \
       std::stringstream stream;                                          \
       stream.precision(std::numeric_limits<type>::max_digits10);         \
+      if (std::numeric_limits<type>::has_infinity) {                     \
+        if (std::isinf(rhs)) {                                           \
+          return Node(".inf");                                           \
+        }                                                                \
+      }                                                                  \
+      if (std::numeric_limits<type>::has_quiet_NaN) {                    \
+        if (std::isnan(rhs)) {                                           \
+          return Node(".nan");                                           \
+        }                                                                \
+      }                                                                  \
       stream << rhs;                                                     \
       return Node(stream.str());                                         \
     }                                                                    \
